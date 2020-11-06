@@ -23,9 +23,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
     public int Rating { get; set; }
 
-    public int? LodgingId { get; set; }
-
-    public LodgingModel Lodging { get; set; }
+    public int? LodgingModelId { get; set; }
 
     /// <summary>
     /// Represents the _Review_ `Validate` method

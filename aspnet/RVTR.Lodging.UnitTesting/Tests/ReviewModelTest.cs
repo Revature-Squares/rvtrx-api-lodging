@@ -19,8 +19,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
           Comment = "Comment",
           DateCreated = DateTime.Now,
           Rating = 1,
-          LodgingId = 0,
-          Lodging = null
+          LodgingModelId = 0,
         }
       }
     };
