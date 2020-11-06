@@ -26,6 +26,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.CompletedTask);
       repositoryMock.Setup(m => m.InsertAsync(It.IsAny<RentalModel>())).Returns(Task.CompletedTask);
       repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<RentalModel>)null);
+      repositoryMock.Setup(m => m.SelectAsync(-1)).Throws(new KeyNotFoundException());
       repositoryMock.Setup(m => m.SelectAsync(0)).Throws(new Exception());
       repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((RentalModel)null);
       repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new RentalModel() { Id = 2, LotNumber = "2", Status = "Available", Price = 1.00 });
@@ -71,12 +72,16 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_Controller_Put()
     {
       RentalModel rentalmodel = await _unitOfWork.Rental.SelectAsync(2);
+      RentalModel rentalModelBadId = await _unitOfWork.Rental.SelectAsync(2);
+      rentalModelBadId.Id = -1;
 
       var resultPass = await _controller.Put(rentalmodel);
       var resultFail = await _controller.Put(null);
+      var resultFail2 = await _controller.Put(rentalModelBadId);
 
       Assert.NotNull(resultPass);
       Assert.NotNull(resultFail);
+      Assert.NotNull(resultFail2);
     }
   }
 }

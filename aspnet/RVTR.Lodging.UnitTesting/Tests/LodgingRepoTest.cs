@@ -43,6 +43,32 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
     [Theory]
     [MemberData(nameof(Records))]
+    public async void Test_LodgingRepo_SelectAsync(LodgingModel lodging)
+    {
+      using (var ctx = new LodgingContext(Options))
+      {
+        await ctx.Lodgings.AddAsync(lodging);
+        await ctx.SaveChangesAsync();
+      }
+
+      using (var ctx = new LodgingContext(Options))
+      {
+        var lodgings = new LodgingRepo(ctx);
+
+        var resultEqual = await lodgings.SelectAsync(5);
+
+        Assert.Equal(lodging.Id, resultEqual.Id);
+        Assert.Equal(lodging.Bathrooms, resultEqual.Bathrooms);
+        Assert.Equal(lodging.Location.Latitude, resultEqual.Location.Latitude);
+        Assert.Equal(lodging.Location.Longitude, resultEqual.Location.Longitude);
+        Assert.Equal(lodging.Name, resultEqual.Name);
+
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await lodgings.SelectAsync(-1)); 
+      }
+    }
+
+    [Theory]
+    [MemberData(nameof(Records))]
     public async void Test_LodgingRepo_LodgingByLocationAndOccupancy(LodgingModel lodging)
     {
       using (var ctx = new LodgingContext(Options))

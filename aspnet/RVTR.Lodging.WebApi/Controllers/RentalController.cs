@@ -45,21 +45,14 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Deleting a rental @ id = {id}...");
         var rental = await _unitOfWork.Rental.SelectAsync(id);
-        if (rental == null)
-        {
-          throw new KeyNotFoundException("The given id does not exist.");
-        }
-        else
-        {
-          await _unitOfWork.Rental.DeleteAsync(id);
-          await _unitOfWork.CommitAsync();
-          _logger.LogInformation($"Successfully deleted a rental @ id = {id}.");
-          return Ok();
-        }
+        await _unitOfWork.Rental.DeleteAsync(rental.Id);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully deleted a rental @ id = {rental.Id}.");
+        return Ok();
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find rental @ id = {id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {id}.", e, id);
         return NotFound(id);
       }
     }
@@ -87,18 +80,11 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Getting a rental @ id = {id}...");
         var rental = await _unitOfWork.Rental.SelectAsync(id);
-        if (rental == null)
-        {
-          throw new KeyNotFoundException("The given id does not exist");
-        }
-        else
-        {
-          return Ok(rental);
-        }
+        return Ok(rental);
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find rental @ id = {id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {id}.", e, id);
         return NotFound(id);
       }
     }
@@ -132,26 +118,19 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Updating a rental @ {rental}...");
         var selectedRental = await _unitOfWork.Rental.SelectAsync(rental.Id);
-        if (selectedRental == null)
-        {
-          throw new KeyNotFoundException("The given id was not found.");
-        }
-        else
-        {
-          _unitOfWork.Rental.Update(selectedRental);
-          await _unitOfWork.CommitAsync();
-          _logger.LogInformation($"Successfully updated a rental @ {selectedRental}.");
-          return Accepted(selectedRental);
-        }
+        _unitOfWork.Rental.Update(selectedRental);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully updated a rental @ {selectedRental}.");
+        return Accepted(selectedRental);
       }
       catch (NullReferenceException e)
       {
-        _logger.LogInformation($"Failed to update a rental @ {rental}. Caught: {e}.");
+        _logger.LogInformation(e, "Caught: {e}. Given rental parameter was null.", e);
         return NotFound(rental);
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find rental @ id = {rental.Id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {rental.Id}", e, rental);
         return NotFound(rental.Id);
       }
     }

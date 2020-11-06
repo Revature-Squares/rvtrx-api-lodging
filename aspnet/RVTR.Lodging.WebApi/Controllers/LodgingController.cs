@@ -59,18 +59,11 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Getting a lodging @ id = {id}...");
         var lodging = await _unitOfWork.Lodging.SelectAsync(id);
-        if (lodging == null)
-        {
-          throw new KeyNotFoundException("The given id does not exist");
-        }
-        else
-        {
-          _logger.LogInformation($"Successfully found a lodging @ id = {id}.");
-          return Ok(lodging);
-        }
-      } catch (KeyNotFoundException e)
+        return Ok(lodging);
+      }
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find lodging @ id = {id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {id}.", e, id);
         return NotFound(id);
       }
     }
@@ -104,21 +97,14 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Deleting a lodging @ id = {id}...");
         LodgingModel lodge = await _unitOfWork.Lodging.SelectAsync(id);
-        if (lodge == null)
-        {
-          throw new KeyNotFoundException("The given id was not found.");
-        }
-        else
-        {
-          await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
-          await _unitOfWork.CommitAsync();
-          _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
-          return Ok();
-        }
+        await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
+        return Ok();
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find lodging @ id = {id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {id}.", e, id);
         return NotFound(id);
       }
     }
@@ -152,26 +138,19 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Updating a lodging @ {lodging}...");
         var newlodging = await _unitOfWork.Lodging.SelectAsync(lodging.Id);
-        if (newlodging == null)
-        {
-          throw new KeyNotFoundException("The given id was not found.");
-        }
-        else
-        {
-          _unitOfWork.Lodging.Update(newlodging);
-          await _unitOfWork.CommitAsync();
-          _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
-          return Accepted(lodging);
-        }
+        _unitOfWork.Lodging.Update(newlodging);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
+        return Accepted(lodging);
       }
       catch (NullReferenceException e)
       {
-        _logger.LogInformation($"Failed to update a lodging @ {lodging}. Caught: {e}.");
+        _logger.LogInformation(e, "Caught: {e}. Given lodging parameter was null.", e);
         return NotFound(lodging);
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find lodging @ id = {lodging.Id}. Caught: {e.Message}");
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {lodging.Id}.", e, lodging);
         return NotFound(lodging.Id);
       }
     }

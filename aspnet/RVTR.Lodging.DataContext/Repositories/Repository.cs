@@ -24,7 +24,18 @@ namespace RVTR.Lodging.DataContext.Repositories
 
     public virtual async Task<IEnumerable<TEntity>> SelectAsync() => await Db.ToListAsync();
 
-    public virtual async Task<TEntity> SelectAsync(int id) => await Db.FindAsync(id).ConfigureAwait(true);
+    public virtual async Task<TEntity> SelectAsync(int id)
+    {
+      var result = await Db.FindAsync(id).ConfigureAwait(true);
+      if (result == null)
+      {
+        throw new KeyNotFoundException("The given id does not exist in the database.");
+      }
+      else
+      {
+        return result;
+      }
+    }
 
     public virtual void Update(TEntity entry) => Db.Update(entry);
   }

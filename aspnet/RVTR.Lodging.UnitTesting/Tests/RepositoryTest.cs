@@ -155,27 +155,21 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         var lodgings = new Repository<LodgingModel>(ctx);
 
-        var actual = await lodgings.SelectAsync(1);
-
-        Assert.Null(actual);
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await lodgings.SelectAsync(1));
       }
 
       using (var ctx = new LodgingContext(Options))
       {
         var rentals = new Repository<RentalModel>(ctx);
 
-        var actual = await rentals.SelectAsync(1);
-
-        Assert.Null(actual);
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await rentals.SelectAsync(1));
       }
 
       using (var ctx = new LodgingContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
 
-        var actual = await reviews.SelectAsync(1);
-
-        Assert.Null(actual);
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await reviews.SelectAsync(1));
       }
     }
 
