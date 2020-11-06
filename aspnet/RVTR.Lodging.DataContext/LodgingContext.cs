@@ -62,18 +62,18 @@ namespace RVTR.Lodging.DataContext
 
       modelBuilder.Entity<RentalModel>().HasData(new List<RentalModel>()
       {
-        new RentalModel() { Id = 1, LodgingId = 1, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 2, LodgingId = 1, LotNumber = "101", Status = "Available", Price = 300, DiscountedPrice = 280 },
-        new RentalModel() { Id = 3, LodgingId = 1, LotNumber = "102", Status = "Booked", Price = 300, DiscountedPrice = 280 },
-        new RentalModel() { Id = 4, LodgingId = 1, LotNumber = "103", Status = "Booked", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 5, LodgingId = 2, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 6, LodgingId = 2, LotNumber = "101", Status = "Available", Price = 300, DiscountedPrice = 280 },
-        new RentalModel() { Id = 7, LodgingId = 2, LotNumber = "102", Status = "Booked", Price = 300, DiscountedPrice = 280 },
-        new RentalModel() { Id = 8, LodgingId = 2, LotNumber = "103", Status = "Booked", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 9, LodgingId = 3, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 10, LodgingId = 3, LotNumber = "101", Status = "Booked", Price = 100, DiscountedPrice = 70 },
-        new RentalModel() { Id = 11, LodgingId = 4, LotNumber = "100", Status = "Available", Price = 300, DiscountedPrice = 280 },
-        new RentalModel() { Id = 12, LodgingId = 4, LotNumber = "101", Status = "Booked", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 1, LodgingModelId = 1, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 2, LodgingModelId = 1, LotNumber = "101", Status = "Available", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 3, LodgingModelId = 1, LotNumber = "102", Status = "Booked", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 4, LodgingModelId = 1, LotNumber = "103", Status = "Booked", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 5, LodgingModelId = 2, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 6, LodgingModelId = 2, LotNumber = "101", Status = "Available", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 7, LodgingModelId = 2, LotNumber = "102", Status = "Booked", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 8, LodgingModelId = 2, LotNumber = "103", Status = "Booked", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 9, LodgingModelId = 3, LotNumber = "100", Status = "Available", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 10, LodgingModelId = 3, LotNumber = "101", Status = "Booked", Price = 100, DiscountedPrice = 70 },
+        new RentalModel() { Id = 11, LodgingModelId = 4, LotNumber = "100", Status = "Available", Price = 300, DiscountedPrice = 280 },
+        new RentalModel() { Id = 12, LodgingModelId = 4, LotNumber = "101", Status = "Booked", Price = 300, DiscountedPrice = 280 },
       });
 
       modelBuilder.Entity<RentalUnitModel>().HasData(new List<RentalUnitModel>()

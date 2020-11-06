@@ -28,9 +28,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     [Range(0, Double.PositiveInfinity, ErrorMessage = "Price must be positive.")]
     public double? DiscountedPrice { get; set; }
 
-    public int? LodgingId { get; set; }
-
-    public LodgingModel Lodging { get; set; }
+    public int? LodgingModelId { get; set; }
 
     /// <summary>
     /// Represents the _Rental_ `Validate` method
