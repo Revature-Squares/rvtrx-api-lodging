@@ -28,13 +28,24 @@ namespace RVTR.Lodging.DataContext.Repositories
     /// <summary>
     /// This method will get a Lodging with the given Id and will include its Location, Reviews, and the locations address
     /// </summary>
-    public override async Task<LodgingModel> SelectAsync(int id) => await Db
+    public override async Task<LodgingModel> SelectAsync(int id)
+    {
+      var lodging = await Db
       .Include(r => r.Rentals)
         .ThenInclude(ru => ru.Unit)
       .Include(l => l.Location)
         .ThenInclude(a => a.Address)
       .Include(r => r.Reviews)
       .FirstOrDefaultAsync(x => x.Id == id);
+      if (lodging == null)
+      {
+        throw new KeyNotFoundException("The given id does not exist in the database.");
+      }
+      else
+      {
+        return lodging;
+      }
+    }
 
     /// <summary>
     /// This method will return all the lodgings in the given location whose rental status is "available" and where occupancy is not less than the

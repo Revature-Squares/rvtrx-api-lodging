@@ -21,6 +21,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       var unitOfWorkMock = new Mock<IUnitOfWork>();
 
       repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<LodgingModel>)null);
+      repositoryMock.Setup(m => m.SelectAsync(-1)).Throws(new KeyNotFoundException());
       repositoryMock.Setup(m => m.SelectAsync(0)).ReturnsAsync(new LodgingModel());
       repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((LodgingModel)null);
       repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new LodgingModel() { Id = 2, LocationId = 2, Name = "name", Bathrooms = 1 });
@@ -71,12 +72,16 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_Controller_Put()
     {
       LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(2);
+      LodgingModel lodgingModelBadId = await _unitOfWork.Lodging.SelectAsync(2);
+      lodgingModelBadId.Id = -1;
 
       var resultPass = await _controller.Put(lodgingmodel);
       var resultFail = await _controller.Put(null);
+      var resultFail2 = await _controller.Put(lodgingModelBadId);
 
       Assert.NotNull(resultPass);
       Assert.NotNull(resultFail);
+      Assert.NotNull(resultFail2);
     }
   }
 }
