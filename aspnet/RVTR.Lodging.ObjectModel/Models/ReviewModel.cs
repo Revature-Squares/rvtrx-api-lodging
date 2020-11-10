@@ -26,6 +26,13 @@ namespace RVTR.Lodging.ObjectModel.Models
     public int? LodgingModelId { get; set; }
 
     /// <summary>
+    /// The name of the profile reviewing the lodging
+    /// </summary>
+    [Required(ErrorMessage = "Must have a name.")]
+    [MaxLength(100, ErrorMessage = "Comment must be fewer than 100 characters long")]
+    public string Name { get; set; }
+
+    /// <summary>
     /// Represents the _Review_ `Validate` method
     /// </summary>
     /// <param name="validationContext"></param>
