@@ -72,15 +72,18 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_Controller_Put()
     {
       LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(2);
-      LodgingModel lodgingModelBadId = await _unitOfWork.Lodging.SelectAsync(2);
-      lodgingModelBadId.Id = -1;
 
       var resultPass = await _controller.Put(lodgingmodel);
       var resultFail = await _controller.Put(null);
-      var resultFail2 = await _controller.Put(lodgingModelBadId);
 
       Assert.NotNull(resultPass);
       Assert.NotNull(resultFail);
+
+      LodgingModel lodgingModelBadId = await _unitOfWork.Lodging.SelectAsync(2);
+      lodgingModelBadId.Id = -1;
+
+      var resultFail2 = await _controller.Put(lodgingModelBadId);
+
       Assert.NotNull(resultFail2);
     }
   }

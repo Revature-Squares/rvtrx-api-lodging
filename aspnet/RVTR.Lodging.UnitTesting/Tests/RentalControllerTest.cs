@@ -72,15 +72,18 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_Controller_Put()
     {
       RentalModel rentalmodel = await _unitOfWork.Rental.SelectAsync(2);
-      RentalModel rentalModelBadId = await _unitOfWork.Rental.SelectAsync(2);
-      rentalModelBadId.Id = -1;
-
+      
       var resultPass = await _controller.Put(rentalmodel);
       var resultFail = await _controller.Put(null);
-      var resultFail2 = await _controller.Put(rentalModelBadId);
 
       Assert.NotNull(resultPass);
       Assert.NotNull(resultFail);
+
+      RentalModel rentalModelBadId = await _unitOfWork.Rental.SelectAsync(2);
+      rentalModelBadId.Id = -1;
+
+      var resultFail2 = await _controller.Put(rentalModelBadId);
+
       Assert.NotNull(resultFail2);
     }
   }
