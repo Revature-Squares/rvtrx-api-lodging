@@ -55,6 +55,12 @@ namespace RVTR.Lodging.ObjectModel.Models
     public IEnumerable<ReviewModel> Reviews { get; set; } = new List<ReviewModel>();
 
     /// <summary>
+    /// Review list for the images
+    /// </summary>
+    /// <value></value>
+    public IEnumerable<ImageModel> Images { get; set; } = new List<ImageModel>();
+
+    /// <summary>
     /// Represents the _Lodging_ `Validate` model
     /// </summary>
     /// <param name="validationContext"></param>

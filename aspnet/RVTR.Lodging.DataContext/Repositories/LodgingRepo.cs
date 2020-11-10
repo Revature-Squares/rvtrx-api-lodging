@@ -23,6 +23,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       .Include(l => l.Location)
         .ThenInclude(a => a.Address)
       .Include(r => r.Reviews)
+      .Include(i => i.Images)
       .ToListAsync();
 
     /// <summary>
@@ -36,6 +37,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       .Include(l => l.Location)
         .ThenInclude(a => a.Address)
       .Include(r => r.Reviews)
+      .Include(i => i.Images)
       .FirstOrDefaultAsync(x => x.Id == id);
       if (lodging == null)
       {
@@ -62,6 +64,7 @@ namespace RVTR.Lodging.DataContext.Repositories
         (numParams < 3 || string.IsNullOrEmpty(location[2]) || c.Location.Address.Country.ToLower() == location[2].ToLower());
 
       var lodgingsByLocation = await Db
+        .Include(i => i.Images)
         .Include(r => r.Rentals)
           .ThenInclude(ru => ru.Unit)
         .Include(l => l.Location)
