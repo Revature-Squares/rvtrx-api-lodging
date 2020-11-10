@@ -20,7 +20,7 @@ spec:
     spec:
       volumes:
         - name: postgres-pv-lodging
-          persistantVolumeClaim:
+          persistentVolumeClaim:
             claimName: lodging-pv-claim
       containers:
         - env:
