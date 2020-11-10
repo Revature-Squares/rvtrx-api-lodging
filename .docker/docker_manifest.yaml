@@ -11,6 +11,7 @@ services:
       dockerfile: ../.docker/aspnet_local.dockerfile
     depends_on:
       - data
+    restart: on-failure
     environment:
       ConnectionStrings__pgsql: 'Host=data;Database=LodgingData;Username=postgres;Password=LodgingData@2020;'
       ConnectionStrings__zipkin: 'http://trace:9411/'
