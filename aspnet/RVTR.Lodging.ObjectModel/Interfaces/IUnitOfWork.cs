@@ -8,6 +8,7 @@ namespace RVTR.Lodging.ObjectModel.Interfaces
     ILodgingRepo Lodging { get; }
     IRepository<RentalModel> Rental { get; set; }
     IRepository<ReviewModel> Review { get; set; }
+    IRepository<ImageModel> Image { get; set; }
 
     Task<int> CommitAsync();
   }

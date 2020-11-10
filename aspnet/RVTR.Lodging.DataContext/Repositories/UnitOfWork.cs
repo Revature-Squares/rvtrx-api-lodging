@@ -16,6 +16,7 @@ namespace RVTR.Lodging.DataContext.Repositories
     public ILodgingRepo Lodging { get; }
     public IRepository<RentalModel> Rental { get; set; }
     public IRepository<ReviewModel> Review { get; set; }
+    public IRepository<ImageModel> Image { get; set; }
 
     public UnitOfWork(LodgingContext context)
     {
@@ -24,6 +25,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       Lodging = new LodgingRepo(context);
       Rental = new Repository<RentalModel>(context);
       Review = new Repository<ReviewModel>(context);
+      Image = new Repository<ImageModel>(context);
     }
 
     /// <summary>
