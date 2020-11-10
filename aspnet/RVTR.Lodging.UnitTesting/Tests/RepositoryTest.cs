@@ -17,7 +17,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         new LodgingModel { Id = 1, LocationId = 1, Bathrooms = 1, Name = "Test" },
         new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
-        new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1 }
+        new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1, Name = "Bob" }
       }
     };
 
