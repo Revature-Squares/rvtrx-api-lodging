@@ -17,20 +17,23 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         new LodgingModel { Id = 1, LocationId = 1, Bathrooms = 1, Name = "Test" },
         new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
-        new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1 }
+        new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1 },
+        new ImageModel { Id = 1, ImageUri = "" }
       }
     };
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_DeleteAsync(LodgingModel lodging, RentalModel rental, ReviewModel review)
+    public async void Test_Repository_DeleteAsync(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
     {
       using (var ctx = new LodgingContext(Options))
       {
         ctx.Rentals.RemoveRange(ctx.Rentals);
         ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Images.RemoveRange(ctx.Images);
         await ctx.Rentals.AddAsync(rental);
         await ctx.Reviews.AddAsync(review);
+        await ctx.Images.AddAsync(image);
         await ctx.Lodgings.AddAsync(lodging);
         await ctx.SaveChangesAsync();
       }
@@ -61,16 +64,25 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
         Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Reviews.Find(review.Id)).State);
       }
+      using (var ctx = new LodgingContext(Options))
+      {
+        var images = new Repository<ImageModel>(ctx);
+
+        await images.DeleteAsync(image.Id);
+
+        Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Images.Find(image.Id)).State);
+      }
     }
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_InsertAsync(LodgingModel lodging, RentalModel rental, ReviewModel review)
+    public async void Test_Repository_InsertAsync(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
     {
       using (var ctx = new LodgingContext(Options))
       {
         ctx.Rentals.RemoveRange(ctx.Rentals);
         ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
@@ -100,6 +112,14 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
         Assert.Equal(EntityState.Added, ctx.Entry(review).State);
       }
+      using (var ctx = new LodgingContext(Options))
+      {
+        var images = new Repository<ImageModel>(ctx);
+
+        await images.InsertAsync(image);
+
+        Assert.Equal(EntityState.Added, ctx.Entry(image).State);
+      }
     }
 
     [Fact]
@@ -109,6 +129,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         ctx.Rentals.RemoveRange(ctx.Rentals);
         ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
@@ -138,6 +159,14 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
         Assert.Empty(actual);
       }
+      using (var ctx = new LodgingContext(Options))
+      {
+        var images = new Repository<ImageModel>(ctx);
+
+        var actual = await images.SelectAsync();
+
+        Assert.Empty(actual);
+      }
     }
 
     [Fact]
@@ -147,6 +176,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         ctx.Rentals.RemoveRange(ctx.Rentals);
         ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
@@ -170,19 +200,27 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
         await Assert.ThrowsAsync<KeyNotFoundException>(async () => await reviews.SelectAsync(1));
       }
+      using (var ctx = new LodgingContext(Options))
+      {
+        var images = new Repository<ImageModel>(ctx);
+
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await images.SelectAsync(1));
+      }
     }
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_Update(LodgingModel lodging, RentalModel rental, ReviewModel review)
+    public async void Test_Repository_Update(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
     {
       using (var ctx = new LodgingContext(Options))
       {
         ctx.Rentals.RemoveRange(ctx.Rentals);
         ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Images.RemoveRange(ctx.Images);
         await ctx.Lodgings.AddAsync(lodging);
         await ctx.Rentals.AddAsync(rental);
         await ctx.Reviews.AddAsync(review);
+        await ctx.Images.AddAsync(image);
         await ctx.SaveChangesAsync();
       }
 
@@ -222,6 +260,19 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
         var result = ctx.Reviews.Find(review.Id);
         Assert.Equal(reviewToUpdate.Comment, result.Comment);
+        Assert.Equal(EntityState.Modified, ctx.Entry(result).State);
+      }
+
+      using (var ctx = new LodgingContext(Options))
+      {
+        var images = new Repository<ImageModel>(ctx);
+        var imageToUpdate = await ctx.Images.FirstAsync();
+
+        imageToUpdate.ImageUri = "https://test.jpg";
+        images.Update(imageToUpdate);
+
+        var result = ctx.Images.Find(image.Id);
+        Assert.Equal(imageToUpdate.ImageUri, result.ImageUri);
         Assert.Equal(EntityState.Modified, ctx.Entry(result).State);
       }
     }
