@@ -48,10 +48,11 @@ namespace RVTR.Lodging.Domain.Models
     public string SiteName { get; set; }
 
     /// <summary>
-    /// Id of the rental
+    /// Id of the Campground
     /// </summary>
     /// <value></value>
-    public RentalModel Rental { get; set; }
+    [Required(ErrorMessage = "Campsites must be part of a campground.")]
+    public LodgingModel Campground { get; set; }
 
     /// <summary>
     /// the size of the rental unit (e.g. 5 x 5, 5x5, 5ft x 5ft, 5 yards x 5 yards etc.)
@@ -73,6 +74,10 @@ namespace RVTR.Lodging.Domain.Models
       Backpacking
     }
 
+    /// <summary>
+    /// type of this campsite.
+    /// </summary>
+    /// <value></value>
     [Required(ErrorMessage = "Must specify the type of campsite ('Glamping', 'RV', 'CarCamping', or 'Backpacking').")]
     public CampsiteType Type {get;set;}
 
