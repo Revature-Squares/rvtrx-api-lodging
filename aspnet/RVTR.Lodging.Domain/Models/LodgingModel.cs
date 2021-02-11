@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using RVTR.Lodging.Domain.Attributes;
 
 namespace RVTR.Lodging.Domain.Models
 {
@@ -38,8 +39,7 @@ namespace RVTR.Lodging.Domain.Models
     /// Number of bathrooms at the lodging has to be one can have as any amount
     /// </summary>
     /// <value></value>
-    [Required(ErrorMessage = "Number of bathrooms is required")]
-    [Range(1, double.PositiveInfinity)]
+    [FacilitiesAttribute]
     public int Bathrooms { get; set; }
 
 
