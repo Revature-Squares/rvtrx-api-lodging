@@ -21,11 +21,11 @@ namespace RVTR.Lodging.Context
     /// <value></value>
     public DbSet<RentalModel> Rentals { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <value></value>
-    public DbSet<RentalUnitModel> RentalUnits { get; set; }
+    // /// <summary>
+    // ///
+    // /// </summary>
+    // /// <value></value>
+    // public DbSet<RentalUnitModel> RentalUnits { get; set; }
 
     /// <summary>
     ///
@@ -117,21 +117,21 @@ namespace RVTR.Lodging.Context
         new ImageModel() {Id = 28, LodgingModelId = 4, ImageUri = "https://upload.wikimedia.org/wikipedia/commons/6/67/Desert_Fox_Pups.jpg"},
       });
 
-      modelBuilder.Entity<RentalUnitModel>().HasData(new List<RentalUnitModel>()
-      {
-        new RentalUnitModel() { Id = 1, RentalId = 1, Capacity = 4, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 2, RentalId = 2, Capacity = 5, Name = "RV", Size = "10x10" },
-        new RentalUnitModel() { Id = 3, RentalId = 3, Capacity = 5, Name = "RV", Size = "10x10" },
-        new RentalUnitModel() { Id = 4, RentalId = 4, Capacity = 4, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 5, RentalId = 5, Capacity = 4, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 6, RentalId = 6, Capacity = 5, Name = "RV", Size = "10x10" },
-        new RentalUnitModel() { Id = 7, RentalId = 7, Capacity = 5, Name = "RV", Size = "10x10" },
-        new RentalUnitModel() { Id = 8, RentalId = 8, Capacity = 4, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 9, RentalId = 9, Capacity = 4, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 10, RentalId = 10, Capacity = 5, Name = "Tent", Size = "5x5" },
-        new RentalUnitModel() { Id = 11, RentalId = 11, Capacity = 4, Name = "RV", Size = "10x10" },
-        new RentalUnitModel() { Id = 12, RentalId = 12, Capacity = 5, Name = "RV", Size = "10x10" },
-      });
+      // modelBuilder.Entity<RentalUnitModel>().HasData(new List<RentalUnitModel>()
+      // {
+      //   new RentalUnitModel() { Id = 1, RentalId = 1, Capacity = 4, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 2, RentalId = 2, Capacity = 5, Name = "RV", Size = "10x10" },
+      //   new RentalUnitModel() { Id = 3, RentalId = 3, Capacity = 5, Name = "RV", Size = "10x10" },
+      //   new RentalUnitModel() { Id = 4, RentalId = 4, Capacity = 4, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 5, RentalId = 5, Capacity = 4, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 6, RentalId = 6, Capacity = 5, Name = "RV", Size = "10x10" },
+      //   new RentalUnitModel() { Id = 7, RentalId = 7, Capacity = 5, Name = "RV", Size = "10x10" },
+      //   new RentalUnitModel() { Id = 8, RentalId = 8, Capacity = 4, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 9, RentalId = 9, Capacity = 4, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 10, RentalId = 10, Capacity = 5, Name = "Tent", Size = "5x5" },
+      //   new RentalUnitModel() { Id = 11, RentalId = 11, Capacity = 4, Name = "RV", Size = "10x10" },
+      //   new RentalUnitModel() { Id = 12, RentalId = 12, Capacity = 5, Name = "RV", Size = "10x10" },
+      // });
 
       modelBuilder.Entity<AddressModel>().HasData(new List<AddressModel>()
       {
