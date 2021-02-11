@@ -19,10 +19,11 @@ namespace RVTR.Lodging.Testing.Tests
           DiscountedPrice = 0.0,
           LodgingModelId = 0,
           LotNumber = "1",
-          Capacity = 1,
+          CapacityPeople = 1,
+          CapacityVehicles = 0,
           SiteName = "TestCampsite",
           Campground = new LodgingModel(),
-          Type = CampsiteType.Backpacking
+          Type = RentalModel.CampsiteType.Backpacking
         }
       }
     };
