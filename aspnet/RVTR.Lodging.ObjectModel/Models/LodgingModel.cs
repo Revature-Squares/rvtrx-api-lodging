@@ -35,12 +35,13 @@ namespace RVTR.Lodging.ObjectModel.Models
     public string Name { get; set; }
 
     /// <summary>
-    /// Number of bathrooms at the lodging
+    /// Number of bathrooms at the lodging has to be one can have as any amount
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Number of bathrooms is required")]
-    [Range(1, 100, ErrorMessage = "Must have between 1 and 100 bathrooms")]
+    [Range(1, double.PositiveInfinity)]
     public int Bathrooms { get; set; }
+
 
     /// <summary>
     /// Rental list of the lodging
