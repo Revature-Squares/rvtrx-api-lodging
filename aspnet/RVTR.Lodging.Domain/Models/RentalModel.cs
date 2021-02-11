@@ -61,7 +61,20 @@ namespace RVTR.Lodging.Domain.Models
     [RegularExpression(@"^\d+ ?([Ff]t|[Yy]ards|[Mm]eters|[Mm]) ?x ?\d+ ?([Ff]t|[Yy]ards|[Mm]eters|[Mm])$", ErrorMessage = "Size must be in the form '10 [unit?] x 10 [unit?]'")]
     public string Size { get; set; }
 
+    /// <summary>
+    /// enum of the possible types for the campsite.
+    /// </summary>
+    /// <value></value>
+    public enum CampsiteType
+    {
+      Glamping = 0,
+      RV,
+      CarCamping,
+      Backpacking
+    }
 
+    [Required(ErrorMessage = "Must specify the type of campsite ('Glamping', 'RV', 'CarCamping', or 'Backpacking').")]
+    public CampsiteType Type {get;set;}
 
     /// <summary>
     /// Represents the _Rental_ `Validate` method
