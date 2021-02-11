@@ -53,7 +53,6 @@ namespace RVTR.Lodging.Context
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<AddressModel>().HasKey(e => e.Id);
-      modelBuilder.Entity<LocationModel>().HasKey(e => e.Id);
       modelBuilder.Entity<LodgingModel>().HasKey(e => e.Id);
       modelBuilder.Entity<RentalModel>().HasKey(e => e.Id);
       modelBuilder.Entity<ReviewModel>().HasKey(e => e.Id);
@@ -61,10 +60,10 @@ namespace RVTR.Lodging.Context
 
       modelBuilder.Entity<LodgingModel>().HasData(new List<LodgingModel>()
       {
-        new LodgingModel() { Id = 1, LocationId = 1, Name = "Dragon Fly", Bathrooms = 2 },
-        new LodgingModel() { Id = 2, LocationId = 2, Name = "Galleywinter", Bathrooms = 3 },
-        new LodgingModel() { Id = 3, LocationId = 3, Name = "Red Creek", Bathrooms = 5 },
-        new LodgingModel() { Id = 4, LocationId = 4, Name = "Lotus Belle", Bathrooms = 6 },
+        new LodgingModel() { Id = 1, AddressId = 1, Name = "Dragon Fly", Bathrooms = 2 },
+        new LodgingModel() { Id = 2, AddressId = 2, Name = "Galleywinter", Bathrooms = 3 },
+        new LodgingModel() { Id = 3, AddressId = 3, Name = "Red Creek", Bathrooms = 5 },
+        new LodgingModel() { Id = 4, AddressId = 4, Name = "Lotus Belle", Bathrooms = 6 },
       });
 
       modelBuilder.Entity<RentalModel>().HasData(new List<RentalModel>()
@@ -133,14 +132,6 @@ namespace RVTR.Lodging.Context
       //   new RentalUnitModel() { Id = 11, RentalId = 11, Capacity = 4, Name = "RV", Size = "10x10" },
       //   new RentalUnitModel() { Id = 12, RentalId = 12, Capacity = 5, Name = "RV", Size = "10x10" },
       // });
-
-      modelBuilder.Entity<LocationModel>().HasData(new List<LocationModel>()
-      {
-        new LocationModel() { Id = 1, AddressId = 1, Latitude = "38.0755", Longitude = "77.9889" },
-        new LocationModel() { Id = 2, AddressId = 2, Latitude = "38.0755", Longitude = "77.9889" },
-        new LocationModel() { Id = 3, AddressId = 3, Latitude = "38.0755", Longitude = "77.9889" },
-        new LocationModel() { Id = 4, AddressId = 4, Latitude = "38.0755", Longitude = "77.9889" },
-      });
 
       modelBuilder.Entity<AddressModel>().HasData(new List<AddressModel>()
       {
