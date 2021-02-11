@@ -77,13 +77,10 @@ namespace RVTR.Lodging.Domain.Models
       Backpacking
     }
 
-<<<<<<< HEAD
     /// <summary>
     /// type of this campsite.
     /// </summary>
     /// <value></value>
-=======
->>>>>>> added [Required] Type enum property to RentalModel in aspnet Domain
     [Required(ErrorMessage = "Must specify the type of campsite ('Glamping', 'RV', 'CarCamping', or 'Backpacking').")]
     public CampsiteType Type {get;set;}
 

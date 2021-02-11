@@ -19,11 +19,18 @@ namespace RVTR.Lodging.Testing.Tests
           DiscountedPrice = 0.0,
           LodgingModelId = 0,
           LotNumber = "1",
+<<<<<<< HEAD
           CapacityPeople = 1,
           CapacityVehicles = 0,
           SiteName = "TestCampsite",
           Campground = new LodgingModel(),
           Type = RentalModel.CampsiteType.Backpacking
+=======
+          Capacity = 1,
+          SiteName = "TestCampsite",
+          Campground = new LodgingModel(),
+          Type = CampsiteType.Backpacking
+>>>>>>> RentalModel had the Rental property, intended for a RentalUnitModel to refer to a RentalModel; changed to Campground property, referring to a LodgingModel, and made it [Required]. Updated RentalModelTest to include the new properties of RentalModel
         }
       }
     };
