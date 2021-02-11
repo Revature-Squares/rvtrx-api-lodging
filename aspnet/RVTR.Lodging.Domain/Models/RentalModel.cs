@@ -31,14 +31,21 @@ namespace RVTR.Lodging.Domain.Models
     // Start of RentalUnitModel
 
     /// <summary>
-    /// The capacity of the rental unit
+    /// How many people the campsite can host.
     /// </summary>
     /// <value></value>
     [Range(1, 1000, ErrorMessage = "Capacity must be between 1 and 1000")]
-    public int Capacity { get; set; }
+    public int CapacityPeople { get; set; }
 
     /// <summary>
-    /// The name of the rental unit
+    /// The number of parking spaces at this campsite.
+    /// </summary>
+    /// <value></value>
+    [Range(0, 100, ErrorMessage = "Capacity must be between 0 and 100")]
+    public int CapacityVehicles { get; set; }
+
+    /// <summary>
+    /// The name of the campsite.
     /// </summary>
     /// <value></value>
     [SiteNameAttribute]
