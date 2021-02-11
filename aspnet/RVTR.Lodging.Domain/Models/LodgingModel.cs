@@ -35,7 +35,7 @@ namespace RVTR.Lodging.Domain.Models
     public string Name { get; set; }
 
     /// <summary>
-    /// Number of bathrooms at the lodging
+    /// Number of bathrooms at the lodging has to be one can have as any amount
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Number of bathrooms is required")]
