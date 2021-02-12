@@ -7,9 +7,9 @@ namespace RVTR.Lodging.Domain.Attributes
   {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-      var numberOf = (int) value;
+      var NumberOf = (int) value;
 
-      if( numberOf > 1)
+      if( NumberOf > 1)
       {
         return ValidationResult.Success;
       }
