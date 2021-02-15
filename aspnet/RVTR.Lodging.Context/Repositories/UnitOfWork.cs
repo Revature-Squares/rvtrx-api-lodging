@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using RVTR.Lodging.Domain.Interfaces;
 using RVTR.Lodging.Domain.Models;
@@ -8,7 +7,7 @@ namespace RVTR.Lodging.Context.Repositories
   /// <summary>
   /// Represents the _UnitOfWork_ repository
   /// </summary>
-  public class UnitOfWork : IUnitOfWork, IDisposable
+  public class UnitOfWork : IUnitOfWork
   {
     private readonly LodgingContext _context;
     private bool _disposedValue;
@@ -33,22 +32,5 @@ namespace RVTR.Lodging.Context.Repositories
     /// </summary>
     /// <returns></returns>
     public async Task<int> CommitAsync() => await _context.SaveChangesAsync();
-
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!_disposedValue)
-      {
-        if (disposing)
-        {
-          _context.Dispose();
-        }
-        _disposedValue = true;
-      }
-    }
-    public void Dispose()
-    {
-      Dispose(disposing: true);
-      GC.SuppressFinalize(this);
-    }
   }
 }
