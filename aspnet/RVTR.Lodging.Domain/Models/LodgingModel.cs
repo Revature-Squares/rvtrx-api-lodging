@@ -39,7 +39,7 @@ namespace RVTR.Lodging.Domain.Models
     /// Number of bathrooms at the lodging has to be one can have as any amount
     /// </summary>
     /// <value></value>
-    [FacilitiesAttriubte]
+    [FacilitiesAttribute]
     public int Bathrooms { get; set; }
 
 

@@ -19,14 +19,9 @@ namespace RVTR.Lodging.Context.Repositories
     /// </summary>
     public override async Task<IEnumerable<LodgingModel>> SelectAsync() => await Db
       .Include(r => r.Rentals)
-<<<<<<< HEAD
-        .ThenInclude(ru => ru.Unit)
+
       .Include(a => a.Address)
-=======
-        // .ThenInclude(ru => ru.Unit)
-      .Include(l => l.Location)
-        .ThenInclude(a => a.Address)
->>>>>>> RentalUnitModel-folded
+
       .Include(r => r.Reviews)
       .Include(i => i.Images)
       .ToListAsync();
@@ -38,14 +33,9 @@ namespace RVTR.Lodging.Context.Repositories
     {
       var lodging = await Db
       .Include(r => r.Rentals)
-<<<<<<< HEAD
-        .ThenInclude(ru => ru.Unit)
+
       .Include(a => a.Address)
-=======
-        // .ThenInclude(ru => ru.Unit)
-      .Include(l => l.Location)
-        .ThenInclude(a => a.Address)
->>>>>>> RentalUnitModel-folded
+
       .Include(r => r.Reviews)
       .Include(i => i.Images)
       .FirstOrDefaultAsync(x => x.Id == id);
@@ -76,15 +66,10 @@ namespace RVTR.Lodging.Context.Repositories
       var lodgingsByLocation = await Db
         .Include(i => i.Images)
         .Include(r => r.Rentals)
-<<<<<<< HEAD
-          .ThenInclude(ru => ru.Unit)
-        .Include(a => a.Address)
-=======
-          // .ThenInclude(ru => ru.Unit)
-        .Include(l => l.Location)
-          .ThenInclude(la => la.Address)
-        // .Include(a => a.Location.Address)
->>>>>>> RentalUnitModel-folded
+
+        .Include(la => la.Address)
+
+
         .Where(matchesAll)
         .Where(x => x.Rentals.Any(y => y.Status == "Available" && y.Capacity >= occupancy))
         .ToListAsync();
