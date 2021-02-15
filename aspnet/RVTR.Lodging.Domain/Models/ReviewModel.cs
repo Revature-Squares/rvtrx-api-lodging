@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using RVTR.Lodging.Domain.Attributes;
 
 namespace RVTR.Lodging.Domain.Models
 {
@@ -24,6 +25,9 @@ namespace RVTR.Lodging.Domain.Models
     public int Rating { get; set; }
 
     public int? LodgingModelId { get; set; }
+
+    [CheckInAttribute]
+    public bool CheckIn { get; set; }
 
     /// <summary>
     /// The name of the profile reviewing the lodging

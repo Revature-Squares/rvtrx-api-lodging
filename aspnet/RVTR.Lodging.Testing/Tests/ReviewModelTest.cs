@@ -20,7 +20,8 @@ namespace RVTR.Lodging.Testing.Tests
           DateCreated = DateTime.Now,
           Rating = 1,
           LodgingModelId = 0,
-          Name = "Bob"
+          Name = "Bob",
+          CheckIn = true
         }
       }
     };
