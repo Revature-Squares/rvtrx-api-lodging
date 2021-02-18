@@ -13,7 +13,7 @@ namespace RVTR.Lodging.Context.Repositories
   {
     public readonly DbSet<TEntity> Db;
 
-    public Repository(LodgingContext context)
+    public Repository(CampgroundContext context)
     {
       Db = context.Set<TEntity>();
     }

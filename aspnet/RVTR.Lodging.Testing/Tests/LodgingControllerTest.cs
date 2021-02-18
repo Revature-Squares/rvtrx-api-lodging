@@ -8,28 +8,28 @@ using Xunit;
 
 namespace RVTR.Lodging.Testing.Tests
 {
-  public class LodgingControllerTest
+  public class CampgroundControllerTest
   {
-    private readonly LodgingController _controller;
-    private readonly ILogger<LodgingController> _logger;
+    private readonly CampgroundController _controller;
+    private readonly ILogger<CampgroundController> _logger;
     private readonly IUnitOfWork _unitOfWork;
 
-    public LodgingControllerTest()
+    public CampgroundControllerTest()
     {
-      var loggerMock = new Mock<ILogger<LodgingController>>();
-      var repositoryMock = new Mock<ILodgingRepo>();
+      var loggerMock = new Mock<ILogger<CampgroundController>>();
+      var repositoryMock = new Mock<ICampgroundRepo>();
       var unitOfWorkMock = new Mock<IUnitOfWork>();
 
-      repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<LodgingModel>)null);
+      repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<CampgroundModel>)null);
       repositoryMock.Setup(m => m.SelectAsync(-1)).Throws(new KeyNotFoundException());
-      repositoryMock.Setup(m => m.SelectAsync(0)).ReturnsAsync(new LodgingModel());
-      repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((LodgingModel)null);
-      repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new LodgingModel() { Id = 2, AddressId = 2, Name = "name", Bathrooms = 1 });
-      unitOfWorkMock.Setup(m => m.Lodging).Returns(repositoryMock.Object);
+      repositoryMock.Setup(m => m.SelectAsync(0)).ReturnsAsync(new CampgroundModel());
+      repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((CampgroundModel)null);
+      repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new CampgroundModel() { Id = 2, AddressId = 2, Name = "name", Bathrooms = 1 });
+      unitOfWorkMock.Setup(m => m.Campground).Returns(repositoryMock.Object);
 
       _logger = loggerMock.Object;
       _unitOfWork = unitOfWorkMock.Object;
-      _controller = new LodgingController(_logger, _unitOfWork);
+      _controller = new CampgroundController(_logger, _unitOfWork);
     }
 
     [Fact]
@@ -63,7 +63,7 @@ namespace RVTR.Lodging.Testing.Tests
     [Fact]
     public async void Test_Controller_Post()
     {
-      var resultPass = await _controller.Post(new LodgingModel());
+      var resultPass = await _controller.Post(new CampgroundModel());
 
       Assert.NotNull(resultPass);
     }
@@ -71,18 +71,18 @@ namespace RVTR.Lodging.Testing.Tests
     [Fact]
     public async void Test_Controller_Put()
     {
-      LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(2);
+      CampgroundModel campgroundmodel = await _unitOfWork.Campground.SelectAsync(2);
 
-      var resultPass = await _controller.Put(lodgingmodel);
+      var resultPass = await _controller.Put(campgroundmodel);
       var resultFail = await _controller.Put(null);
 
       Assert.NotNull(resultPass);
       Assert.NotNull(resultFail);
 
-      LodgingModel lodgingModelBadId = await _unitOfWork.Lodging.SelectAsync(2);
-      lodgingModelBadId.Id = -1;
+      CampgroundModel campgroundModelBadId = await _unitOfWork.Campground.SelectAsync(2);
+      campgroundModelBadId.Id = -1;
 
-      var resultFail2 = await _controller.Put(lodgingModelBadId);
+      var resultFail2 = await _controller.Put(campgroundModelBadId);
 
       Assert.NotNull(resultFail2);
     }

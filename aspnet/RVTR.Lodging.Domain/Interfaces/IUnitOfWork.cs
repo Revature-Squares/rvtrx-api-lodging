@@ -5,8 +5,8 @@ namespace RVTR.Lodging.Domain.Interfaces
 {
   public interface IUnitOfWork
   {
-    ILodgingRepo Lodging { get; }
-    IRepository<RentalModel> Rental { get; set; }
+    ICampgroundRepo Campground { get; }
+    IRepository<CampsiteModel> Campsite { get; set; }
     IRepository<ReviewModel> Review { get; set; }
     IRepository<ImageModel> Image { get; set; }
 

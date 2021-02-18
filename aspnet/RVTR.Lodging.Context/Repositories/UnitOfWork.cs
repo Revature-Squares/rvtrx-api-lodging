@@ -10,20 +10,20 @@ namespace RVTR.Lodging.Context.Repositories
   /// </summary>
   public class UnitOfWork : IUnitOfWork, IDisposable
   {
-    private readonly LodgingContext _context;
+    private readonly CampgroundContext _context;
     private bool _disposedValue;
 
-    public ILodgingRepo Lodging { get; }
-    public IRepository<RentalModel> Rental { get; set; }
+    public ICampgroundRepo Campground { get; }
+    public IRepository<CampsiteModel> Campsite { get; set; }
     public IRepository<ReviewModel> Review { get; set; }
     public IRepository<ImageModel> Image { get; set; }
 
-    public UnitOfWork(LodgingContext context)
+    public UnitOfWork(CampgroundContext context)
     {
       _context = context;
 
-      Lodging = new LodgingRepo(context);
-      Rental = new Repository<RentalModel>(context);
+      Campground = new CampgroundRepo(context);
+      Campsite = new Repository<CampsiteModel>(context);
       Review = new Repository<ReviewModel>(context);
       Image = new Repository<ImageModel>(context);
     }

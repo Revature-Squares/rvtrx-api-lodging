@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using RVTR.Lodging.Domain.Interfaces;
 using RVTR.Lodging.Domain.Models;
 
-namespace RVTR.Lodging.Service.Controllers
+namespace RVTR.Campground.Service.Controllers
 {
   /// <summary>
   /// Review controller

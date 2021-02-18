@@ -8,58 +8,58 @@ using Microsoft.Extensions.Logging;
 using RVTR.Lodging.Domain.Interfaces;
 using RVTR.Lodging.Domain.Models;
 
-namespace RVTR.Lodging.Service.Controllers
+namespace RVTR.Campground.Service.Controllers
 {
   /// <summary>
-  /// The LodgingController handles lodging resources
+  /// The CampgroundController handles campground resources
   /// </summary>
   [ApiController]
   [ApiVersion("0.0")]
   [EnableCors("public")]
   [Route("rest/lodging/{version:apiVersion}/[controller]")]
-  public class LodgingController : ControllerBase
+  public class CampgroundController : ControllerBase
   {
-    private readonly ILogger<LodgingController> _logger;
+    private readonly ILogger<CampgroundController> _logger;
     private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
-    /// Constructor for the LodgingController sets up logger and unitOfWork dependencies
+    /// Constructor for the CampgroundController sets up logger and unitOfWork dependencies
     /// </summary>
     /// <param name="logger">The Logger</param>
     /// <param name="unitOfWork">The UnitOfWork</param>
-    public LodgingController(ILogger<LodgingController> logger, IUnitOfWork unitOfWork)
+    public CampgroundController(ILogger<CampgroundController> logger, IUnitOfWork unitOfWork)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;
     }
 
     /// <summary>
-    /// Gets all the lodgings in the database
+    /// Gets all the campgrounds in the database
     /// </summary>
-    /// <returns>The Lodgings</returns>
+    /// <returns>The Campgrounds</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<CampgroundModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
-      _logger.LogInformation($"Getting all lodgings...");
-      return Ok(await _unitOfWork.Lodging.SelectAsync());
+      _logger.LogInformation($"Getting all campgrounds...");
+      return Ok(await _unitOfWork.Campground.SelectAsync());
     }
 
     /// <summary>
-    /// Gets one Lodging based on its id
+    /// Gets one Campground based on its id
     /// </summary>
-    /// <param name="id">The Lodging Id</param>
-    /// <returns>The Lodgings if successful or NotFound if no lodging was found</returns>
+    /// <param name="id">The Campground Id</param>
+    /// <returns>The Campgrounds if successful or NotFound if no campground was found</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(LodgingModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CampgroundModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
       try
       {
-        _logger.LogInformation($"Getting a lodging @ id = {id}...");
-        var lodging = await _unitOfWork.Lodging.SelectAsync(id);
-        return Ok(lodging);
+        _logger.LogInformation($"Getting a campground @ id = {id}...");
+        var campground = await _unitOfWork.Campground.SelectAsync(id);
+        return Ok(campground);
       }
       catch (KeyNotFoundException e)
       {
@@ -69,24 +69,24 @@ namespace RVTR.Lodging.Service.Controllers
     }
 
     /// <summary>
-    /// Gets all lodgings with available rentals by City, State/Province, Country and occupancy
+    /// Gets all campgrounds with available campsites by City, State/Province, Country and occupancy
     /// </summary>
     /// <param name="city">The city</param>
     /// <param name="state">The state/province</param>
     /// <param name="country">The country</param>
     /// <param name="occupancy">The occupancy</param>
-    /// <returns>The filtered Lodgings</returns>
+    /// <returns>The filtered Campgrounds</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<CampgroundModel>), StatusCodes.Status200OK)]
     [Route("available")]
-    public async Task<IActionResult> GetLodgingsByLocationAndOccupancy(string city, string state, string country, int occupancy)
+    public async Task<IActionResult> GetCampgroundsByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
-      _logger.LogInformation($"Getting all available lodgings matching City: {city}, State: {state}, Country: {country}, Occupancy: {occupancy}...");
-      return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(occupancy, city, state, country));
+      _logger.LogInformation($"Getting all available campgrounds matching City: {city}, State: {state}, Country: {country}, Occupancy: {occupancy}...");
+      return Ok(await _unitOfWork.Campground.CampgroundByLocationAndOccupancy(occupancy, city, state, country));
     }
 
     /// <summary>
-    /// Action method for deleting a lodging by lodging id
+    /// Action method for deleting a campground by campground id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -95,11 +95,11 @@ namespace RVTR.Lodging.Service.Controllers
     {
       try
       {
-        _logger.LogInformation($"Deleting a lodging @ id = {id}...");
-        LodgingModel lodge = await _unitOfWork.Lodging.SelectAsync(id);
-        await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
+        _logger.LogInformation($"Deleting a campground @ id = {id}...");
+        CampgroundModel campground = await _unitOfWork.Campground.SelectAsync(id);
+        await _unitOfWork.Campground.DeleteAsync(campground.Id);
         await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
+        _logger.LogInformation($"Successfully deleted a campground @ id = {campground.Id}.");
         return Ok();
       }
       catch (KeyNotFoundException e)
@@ -110,48 +110,48 @@ namespace RVTR.Lodging.Service.Controllers
     }
 
     /// <summary>
-    /// Action method for creating a new lodging
+    /// Action method for creating a new campground
     /// </summary>
-    /// <param name="lodging"></param>
+    /// <param name="campground"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Post(LodgingModel lodging)
+    public async Task<IActionResult> Post(CampgroundModel campground)
     {
-      _logger.LogInformation($"Creating a new lodging @ {lodging}...");
-      await _unitOfWork.Lodging.InsertAsync(lodging);
+      _logger.LogInformation($"Creating a new campground @ {campground}...");
+      await _unitOfWork.Campground.InsertAsync(campground);
       await _unitOfWork.CommitAsync();
-      _logger.LogInformation($"Successfully created a new lodging @ {lodging}.");
-      return Accepted(lodging);
+      _logger.LogInformation($"Successfully created a new campground @ {campground}.");
+      return Accepted(campground);
     }
 
     /// <summary>
-    /// Action method for updating a preexisting lodging
+    /// Action method for updating a preexisting campground
     /// </summary>
-    /// <param name="lodging"></param>
+    /// <param name="campground"></param>
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(LodgingModel lodging)
+    public async Task<IActionResult> Put(CampgroundModel campground)
     {
       try
       {
-        _logger.LogInformation($"Updating a lodging @ {lodging}...");
-        var newlodging = await _unitOfWork.Lodging.SelectAsync(lodging.Id);
-        _unitOfWork.Lodging.Update(newlodging);
+        _logger.LogInformation($"Updating a campground @ {campground}...");
+        var newcampground = await _unitOfWork.Campground.SelectAsync(campground.Id);
+        _unitOfWork.Campground.Update(newcampground);
         await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
-        return Accepted(lodging);
+        _logger.LogInformation($"Successfully updated a campground @ {newcampground}.");
+        return Accepted(campground);
       }
       catch (NullReferenceException e)
       {
-        _logger.LogInformation(e, "Caught: {e}. Given lodging parameter was null.", e);
-        return NotFound(lodging);
+        _logger.LogInformation(e, "Caught: {e}. Given campground parameter was null.", e);
+        return NotFound(campground);
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation(e, "Caught: {e.Message}. Id = {lodging.Id}.", e, lodging);
-        return NotFound(lodging.Id);
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {campground.Id}.", e, campground);
+        return NotFound(campground.Id);
       }
     }
   }

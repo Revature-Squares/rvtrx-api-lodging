@@ -8,7 +8,7 @@ namespace RVTR.Lodging.Domain.Attributes
   {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var rentalModel = (RentalModel)validationContext.ObjectInstance;
+        var rentalModel = (CampsiteModel)validationContext.ObjectInstance;
 
         if (rentalModel.SiteName == null)
         {

@@ -6,9 +6,9 @@ using RVTR.Lodging.Domain.Attributes;
 namespace RVTR.Lodging.Domain.Models
 {
   /// <summary>
-  /// Represents the _Rental_ model
+  /// Represents the _Campsite_ model
   /// </summary>
-  public class RentalModel : IValidatableObject
+  public class CampsiteModel : IValidatableObject
   {
     public int Id { get; set; }
 
@@ -24,7 +24,7 @@ namespace RVTR.Lodging.Domain.Models
     [Range(0, Double.PositiveInfinity, ErrorMessage = "Price must be positive.")]
     public double? DiscountedPrice { get; set; }
 
-    public int? LodgingModelId { get; set; }
+    public int? CampgroundModelId { get; set; }
 
 
     //---------------------------------------------------------------------------------------------
@@ -56,10 +56,10 @@ namespace RVTR.Lodging.Domain.Models
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Campsites must be part of a campground.")]
-    public LodgingModel Campground { get; set; }
+    public CampgroundModel Campground { get; set; }
 
     /// <summary>
-    /// the size of the rental unit (e.g. 5 x 5, 5x5, 5ft x 5ft, 5 yards x 5 yards etc.)
+    /// the size of the campsite (e.g. 5 x 5, 5x5, 5ft x 5ft, 5 yards x 5 yards etc.)
     /// </summary>
     /// <value></value>
     [SizeAttribute]
@@ -85,7 +85,7 @@ namespace RVTR.Lodging.Domain.Models
     public CampsiteType Type {get;set;}
 
     /// <summary>
-    /// Represents the _Rental_ `Validate` method
+    /// Represents the _Campsite_ `Validate` method
     /// </summary>
     /// <param name="validationContext"></param>
     /// <returns></returns>

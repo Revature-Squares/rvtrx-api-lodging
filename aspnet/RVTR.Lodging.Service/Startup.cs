@@ -58,7 +58,7 @@ namespace RVTR.Lodging.Service
         });
       });
 
-      services.AddDbContext<LodgingContext>(options =>
+      services.AddDbContext<CampgroundContext>(options =>
       {
         options.UseNpgsql(_configuration.GetConnectionString("pgsql"), options =>
         {

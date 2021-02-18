@@ -11,12 +11,12 @@ namespace RVTR.Lodging.Testing.Tests
     [Fact]
     public async void Test_UnitOfWork_CommitAsync()
     {
-      using var ctx = new LodgingContext(Options);
+      using var ctx = new CampgroundContext(Options);
       var unitOfWork = new UnitOfWork(ctx);
       var actual = await unitOfWork.CommitAsync();
 
-      Assert.NotNull(unitOfWork.Lodging);
-      Assert.NotNull(unitOfWork.Rental);
+      Assert.NotNull(unitOfWork.Campground);
+      Assert.NotNull(unitOfWork.Campsite);
       Assert.NotNull(unitOfWork.Review);
       Assert.Equal(0, actual);
     }

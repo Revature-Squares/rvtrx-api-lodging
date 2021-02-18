@@ -11,30 +11,30 @@ using RVTR.Lodging.Domain.Models;
 namespace RVTR.Lodging.Service.Controllers
 {
   /// <summary>
-  /// Rental controller
+  /// Campsite controller
   /// </summary>
   [ApiController]
   [ApiVersion("0.0")]
   [EnableCors("public")]
   [Route("rest/lodging/{version:apiVersion}/[controller]")]
-  public class RentalController : ControllerBase
+  public class CampsiteController : ControllerBase
   {
-    private readonly ILogger<RentalController> _logger;
+    private readonly ILogger<CampsiteController> _logger;
     private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
-    /// Constructor of the rental controller
+    /// Constructor of the campsite controller
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="unitOfWork"></param>
-    public RentalController(ILogger<RentalController> logger, IUnitOfWork unitOfWork)
+    public CampsiteController(ILogger<CampsiteController> logger, IUnitOfWork unitOfWork)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;
     }
 
     /// <summary>
-    /// Action method for deleting a rental by rental id
+    /// Action method for deleting a campsite by campsite id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -43,11 +43,11 @@ namespace RVTR.Lodging.Service.Controllers
     {
       try
       {
-        _logger.LogInformation($"Deleting a rental @ id = {id}...");
-        var rental = await _unitOfWork.Rental.SelectAsync(id);
-        await _unitOfWork.Rental.DeleteAsync(rental.Id);
+        _logger.LogInformation($"Deleting a campsite @ id = {id}...");
+        var campsite = await _unitOfWork.Campsite.SelectAsync(id);
+        await _unitOfWork.Campsite.DeleteAsync(campsite.Id);
         await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully deleted a rental @ id = {rental.Id}.");
+        _logger.LogInformation($"Successfully deleted a campsite @ id = {campsite.Id}.");
         return Ok();
       }
       catch (KeyNotFoundException e)
@@ -58,18 +58,18 @@ namespace RVTR.Lodging.Service.Controllers
     }
 
     /// <summary>
-    /// Action method for getting all rentals
+    /// Action method for getting all campsites
     /// </summary>
     /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-      _logger.LogInformation($"Getting all rentals...");
-      return Ok(await _unitOfWork.Rental.SelectAsync());
+      _logger.LogInformation($"Getting all campsites...");
+      return Ok(await _unitOfWork.Campsite.SelectAsync());
     }
 
     /// <summary>
-    /// Action method for getting a rental by rental id
+    /// Action method for getting a campsite by campsite id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -78,9 +78,9 @@ namespace RVTR.Lodging.Service.Controllers
     {
       try
       {
-        _logger.LogInformation($"Getting a rental @ id = {id}...");
-        var rental = await _unitOfWork.Rental.SelectAsync(id);
-        return Ok(rental);
+        _logger.LogInformation($"Getting a campsite @ id = {id}...");
+        var campsite = await _unitOfWork.Campsite.SelectAsync(id);
+        return Ok(campsite);
       }
       catch (KeyNotFoundException e)
       {
@@ -90,48 +90,48 @@ namespace RVTR.Lodging.Service.Controllers
     }
 
     /// <summary>
-    /// Action method for creating a new rental
+    /// Action method for creating a new campsite
     /// </summary>
-    /// <param name="rental"></param>
+    /// <param name="campsite"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Post(RentalModel rental)
+    public async Task<IActionResult> Post(CampsiteModel campsite)
     {
-      _logger.LogInformation($"Creating a new rental @ {rental}...");
-      await _unitOfWork.Rental.InsertAsync(rental);
+      _logger.LogInformation($"Creating a new campsite @ {campsite}...");
+      await _unitOfWork.Campsite.InsertAsync(campsite);
       await _unitOfWork.CommitAsync();
-      _logger.LogInformation($"Successfully created a new rental @ {rental}.");
-      return Accepted(rental);
+      _logger.LogInformation($"Successfully created a new campsite @ {campsite}.");
+      return Accepted(campsite);
     }
 
     /// <summary>
-    /// Action method for updating a preexisting rental
+    /// Action method for updating a preexisting campsite
     /// </summary>
-    /// <param name="rental"></param>
+    /// <param name="campsite"></param>
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(RentalModel rental)
+    public async Task<IActionResult> Put(CampsiteModel campsite)
     {
       try
       {
-        _logger.LogInformation($"Updating a rental @ {rental}...");
-        var selectedRental = await _unitOfWork.Rental.SelectAsync(rental.Id);
-        _unitOfWork.Rental.Update(selectedRental);
+        _logger.LogInformation($"Updating a campsite @ {campsite}...");
+        var selectedCampsite = await _unitOfWork.Campsite.SelectAsync(campsite.Id);
+        _unitOfWork.Campsite.Update(selectedCampsite);
         await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully updated a rental @ {selectedRental}.");
-        return Accepted(selectedRental);
+        _logger.LogInformation($"Successfully updated a campsite @ {selectedCampsite}.");
+        return Accepted(selectedCampsite);
       }
       catch (NullReferenceException e)
       {
-        _logger.LogInformation(e, "Caught: {e}. Given rental parameter was null.", e);
-        return NotFound(rental);
+        _logger.LogInformation(e, "Caught: {e}. Given campsite parameter was null.", e);
+        return NotFound(campsite);
       }
       catch (KeyNotFoundException e)
       {
-        _logger.LogInformation(e, "Caught: {e.Message}. Id = {rental.Id}", e, rental);
-        return NotFound(rental.Id);
+        _logger.LogInformation(e, "Caught: {e.Message}. Id = {campsite.Id}", e, campsite);
+        return NotFound(campsite.Id);
       }
     }
   }

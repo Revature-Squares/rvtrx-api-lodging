@@ -4,8 +4,8 @@ using RVTR.Lodging.Domain.Models;
 
 namespace RVTR.Lodging.Domain.Interfaces
 {
-  public interface ILodgingRepo : IRepository<LodgingModel>
+  public interface ICampgroundRepo : IRepository<CampgroundModel>
   {
-    Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(int occupancy, params string[] location);
+    Task<IEnumerable<CampgroundModel>> CampgroundByLocationAndOccupancy(int occupancy, params string[] location);
   }
 }

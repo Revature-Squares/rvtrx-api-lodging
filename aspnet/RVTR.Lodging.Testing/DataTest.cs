@@ -8,18 +8,18 @@ namespace RVTR.Lodging.Testing
   public abstract class DataTest : IDisposable
   {
     private readonly SqliteConnection _connection;
-    protected readonly DbContextOptions<LodgingContext> Options;
+    protected readonly DbContextOptions<CampgroundContext> Options;
     private bool _disposedValue;
 
     protected DataTest()
     {
       _connection = new SqliteConnection("Data Source=:memory:");
       _connection.Open();
-      Options = new DbContextOptionsBuilder<LodgingContext>()
+      Options = new DbContextOptionsBuilder<CampgroundContext>()
         .UseSqlite(_connection)
         .Options;
 
-      using var ctx = new LodgingContext(Options);
+      using var ctx = new CampgroundContext(Options);
       ctx.Database.EnsureCreated();
     }
 

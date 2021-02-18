@@ -23,10 +23,10 @@ namespace RVTR.Lodging.Domain.Models
     [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
     public int Rating { get; set; }
 
-    public int? LodgingModelId { get; set; }
+    public int? CampgroundModelId { get; set; }
 
     /// <summary>
-    /// The name of the profile reviewing the lodging
+    /// The name of the profile reviewing the campground
     /// </summary>
     [LengthAttribute(1, 1000, "Must have a name.")]
     public string Name { get; set; }

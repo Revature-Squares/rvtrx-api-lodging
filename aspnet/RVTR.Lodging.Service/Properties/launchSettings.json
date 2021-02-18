@@ -11,15 +11,15 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "rest/lodging",
+      "launchUrl": "rest/campground",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "RVTR.Lodging.WebApi": {
+    "RVTR.Campground.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "rest/lodging",
+      "launchUrl": "rest/campground",
       "applicationUrl": "http://localhost:8002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

@@ -5,30 +5,30 @@ using RVTR.Lodging.Domain.Attributes;
 namespace RVTR.Lodging.Domain.Models
 {
   /// <summary>
-  /// Represents the _Lodging_ model
+  /// Represents the _campground_ model
   /// </summary>
-  public class LodgingModel : IValidatableObject
+  public class CampgroundModel : IValidatableObject
   {
     /// <summary>
-    /// id of the lodging model in the db
+    /// id of the campground model in the db
     /// </summary>
     /// <value></value>
     public int Id { get; set; }
 
     /// <summary>
-    /// Address id of the lodging's location
+    /// Address id of the campground's location
     /// </summary>
     /// <value></value>
     public int AddressId { get; set; }
 
     /// <summary>
-    /// Address property of the lodging model (required)
+    /// Address property of the campground model (required)
     /// </summary>
     /// <value></value>
     public AddressModel Address { get; set; }
 
     /// <summary>
-    /// Name of the lodging (required)
+    /// Name of the campground (required)
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Name is required")]
@@ -36,7 +36,7 @@ namespace RVTR.Lodging.Domain.Models
     public string Name { get; set; }
 
     /// <summary>
-    /// Number of bathrooms at the lodging has to be one can have as any amount
+    /// Number of bathrooms at the campground has to be one can have as any amount
     /// </summary>
     /// <value></value>
     [FacilitiesAttribute]
@@ -44,13 +44,13 @@ namespace RVTR.Lodging.Domain.Models
 
 
     /// <summary>
-    /// Rental list of the lodging
+    /// Campsite list of the campground
     /// </summary>
     /// <value></value>
-    public IEnumerable<RentalModel> Rentals { get; set; } = new List<RentalModel>();
+    public IEnumerable<CampsiteModel> Campsites { get; set; } = new List<CampsiteModel>();
 
     /// <summary>
-    /// Review list for the lodging
+    /// Review list for the campground
     /// </summary>
     /// <value></value>
     public IEnumerable<ReviewModel> Reviews { get; set; } = new List<ReviewModel>();
@@ -62,7 +62,7 @@ namespace RVTR.Lodging.Domain.Models
     public IEnumerable<ImageModel> Images { get; set; } = new List<ImageModel>();
 
     /// <summary>
-    /// Represents the _Lodging_ `Validate` model
+    /// Represents the _Campground_ `Validate` model
     /// </summary>
     /// <param name="validationContext"></param>
     /// <returns></returns>

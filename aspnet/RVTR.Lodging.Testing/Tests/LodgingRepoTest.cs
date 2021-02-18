@@ -7,16 +7,16 @@ using Xunit;
 
 namespace RVTR.Lodging.Testing.Tests
 {
-  public class LodgingRepoTest : DataTest
+  public class CampgroundRepoTest : DataTest
   {
     public static readonly IEnumerable<object[]> Records = new List<object[]>
     {
       new object[]
       {
-        new LodgingModel
+        new CampgroundModel
         {
           Id = 5,
-          Name = "Lodging",
+          Name = "Campground",
           Address = new AddressModel
           {
             Id = 100,
@@ -28,13 +28,13 @@ namespace RVTR.Lodging.Testing.Tests
             Longitude = "1.00N",
             Latitude = "1.00W"
           },
-          Rentals = new List<RentalModel>
+          Campsites = new List<CampsiteModel>
           {
-            new RentalModel()
+            new CampsiteModel()
             {
               Id = 100, LotNumber = "1", Status = "Available", SiteName = "Unit1", Size = "5x5", Capacity = 4
             },
-            new RentalModel()
+            new CampsiteModel()
             {
               Id = 101, LotNumber = "2", Status = "Booked", SiteName = "Unit2", Size = "5x5", Capacity = 4
             }
@@ -45,45 +45,45 @@ namespace RVTR.Lodging.Testing.Tests
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_LodgingRepo_SelectAsync(LodgingModel lodging)
+    public async void Test_CampgroundRepo_SelectAsync(CampgroundModel campground)
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        await ctx.Lodgings.AddAsync(lodging);
+        await ctx.Campgrounds.AddAsync(campground);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new LodgingRepo(ctx);
+        var campgrounds = new CampgroundRepo(ctx);
 
-        var resultEqual = await lodgings.SelectAsync(5);
+        var resultEqual = await campgrounds.SelectAsync(5);
 
-        Assert.Equal(lodging.Id, resultEqual.Id);
-        Assert.Equal(lodging.Bathrooms, resultEqual.Bathrooms);
-        Assert.Equal(lodging.Address.Latitude, resultEqual.Address.Latitude);
-        Assert.Equal(lodging.Address.Longitude, resultEqual.Address.Longitude);
-        Assert.Equal(lodging.Name, resultEqual.Name);
+        Assert.Equal(campground.Id, resultEqual.Id);
+        Assert.Equal(campground.Bathrooms, resultEqual.Bathrooms);
+        Assert.Equal(campground.Address.Latitude, resultEqual.Address.Latitude);
+        Assert.Equal(campground.Address.Longitude, resultEqual.Address.Longitude);
+        Assert.Equal(campground.Name, resultEqual.Name);
 
-        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await lodgings.SelectAsync(-1));
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await campgrounds.SelectAsync(-1));
       }
     }
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_LodgingRepo_LodgingByLocationAndOccupancy(LodgingModel lodging)
+    public async void Test_CampgroundRepo_CampgroundByLocationAndOccupancy(CampgroundModel campground)
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        await ctx.Lodgings.AddAsync(lodging);
+        await ctx.Campgrounds.AddAsync(campground);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new LodgingRepo(ctx);
+        var campgrounds = new CampgroundRepo(ctx);
 
-        var actual = await lodgings.LodgingByLocationAndOccupancy(2, "Austin");
+        var actual = await campgrounds.CampgroundByLocationAndOccupancy(2, "Austin");
 
         Assert.NotEmpty(actual);
         Assert.True(actual.Count() == 1);

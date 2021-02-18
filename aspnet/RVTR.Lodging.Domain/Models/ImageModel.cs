@@ -11,9 +11,9 @@ namespace RVTR.Lodging.Domain.Models
     public int Id { get; set; }
 
     /// <summary>
-    /// Lodging model id (foreign key)
+    /// Campground model id (foreign key)
     /// </summary>
-    public int? LodgingModelId { get; set; }
+    public int? CampgroundModelId { get; set; }
 
     /// <summary>
     /// Image uri for the image
@@ -22,7 +22,7 @@ namespace RVTR.Lodging.Domain.Models
     public string ImageUri { get; set; } = "https://bulma.io/images/placeholders/1280x960.png";
 
     /// <summary>
-    /// Represents the _Rental_ `Validate` method
+    /// Represents the _Campsite_ `Validate` method
     /// </summary>
     /// <param name="validationContext"></param>
     /// <returns></returns>

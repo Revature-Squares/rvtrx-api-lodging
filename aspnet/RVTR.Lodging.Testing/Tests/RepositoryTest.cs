@@ -15,8 +15,8 @@ namespace RVTR.Lodging.Testing.Tests
     {
       new object[]
       {
-        new LodgingModel { Id = 1, AddressId = 1, Bathrooms = 1, Name = "Test" },
-        new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
+        new CampgroundModel { Id = 1, AddressId = 1, Bathrooms = 1, Name = "Test" },
+        new CampsiteModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
         new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1, Name = "Bob" },
         new ImageModel { Id = 1, ImageUri = "" }
       }
@@ -24,39 +24,39 @@ namespace RVTR.Lodging.Testing.Tests
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_DeleteAsync(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
+    public async void Test_Repository_DeleteAsync(CampgroundModel campground, CampsiteModel campsite, ReviewModel review, ImageModel image)
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        ctx.Rentals.RemoveRange(ctx.Rentals);
-        ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Campsites.RemoveRange(ctx.Campsites);
+        ctx.Campgrounds.RemoveRange(ctx.Campgrounds);
         ctx.Images.RemoveRange(ctx.Images);
-        await ctx.Rentals.AddAsync(rental);
+        await ctx.Campsites.AddAsync(campsite);
         await ctx.Reviews.AddAsync(review);
         await ctx.Images.AddAsync(image);
-        await ctx.Lodgings.AddAsync(lodging);
+        await ctx.Campgrounds.AddAsync(campground);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new Repository<LodgingModel>(ctx);
+        var campgrounds = new Repository<CampgroundModel>(ctx);
 
-        await lodgings.DeleteAsync(lodging.Id);
+        await campgrounds.DeleteAsync(campground.Id);
 
-        Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Lodgings.Find(lodging.Id)).State);
+        Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Campgrounds.Find(campground.Id)).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var rentals = new Repository<RentalModel>(ctx);
+        var campsites = new Repository<CampsiteModel>(ctx);
 
-        await rentals.DeleteAsync(rental.Id);
+        await campsites.DeleteAsync(campsite.Id);
 
-        Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Rentals.Find(rental.Id)).State);
+        Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Campsites.Find(campsite.Id)).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
 
@@ -64,7 +64,7 @@ namespace RVTR.Lodging.Testing.Tests
 
         Assert.Equal(EntityState.Deleted, ctx.Entry(ctx.Reviews.Find(review.Id)).State);
       }
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var images = new Repository<ImageModel>(ctx);
 
@@ -76,35 +76,35 @@ namespace RVTR.Lodging.Testing.Tests
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_InsertAsync(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
+    public async void Test_Repository_InsertAsync(CampgroundModel campground, CampsiteModel campsite, ReviewModel review, ImageModel image)
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        ctx.Rentals.RemoveRange(ctx.Rentals);
-        ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Campsites.RemoveRange(ctx.Campsites);
+        ctx.Campgrounds.RemoveRange(ctx.Campgrounds);
         ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new Repository<LodgingModel>(ctx);
+        var campgrounds = new Repository<CampgroundModel>(ctx);
 
-        await lodgings.InsertAsync(lodging);
+        await campgrounds.InsertAsync(campground);
 
-        Assert.Equal(EntityState.Added, ctx.Entry(lodging).State);
+        Assert.Equal(EntityState.Added, ctx.Entry(campground).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var rentals = new Repository<RentalModel>(ctx);
+        var campsites = new Repository<CampsiteModel>(ctx);
 
-        await rentals.InsertAsync(rental);
+        await campsites.InsertAsync(campsite);
 
-        Assert.Equal(EntityState.Added, ctx.Entry(rental).State);
+        Assert.Equal(EntityState.Added, ctx.Entry(campsite).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
 
@@ -112,7 +112,7 @@ namespace RVTR.Lodging.Testing.Tests
 
         Assert.Equal(EntityState.Added, ctx.Entry(review).State);
       }
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var images = new Repository<ImageModel>(ctx);
 
@@ -125,33 +125,33 @@ namespace RVTR.Lodging.Testing.Tests
     [Fact]
     public async void Test_Repository_SelectAsync()
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        ctx.Rentals.RemoveRange(ctx.Rentals);
-        ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Campsites.RemoveRange(ctx.Campsites);
+        ctx.Campgrounds.RemoveRange(ctx.Campgrounds);
         ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new Repository<LodgingModel>(ctx);
+        var campgrounds = new Repository<CampgroundModel>(ctx);
 
-        var actual = await lodgings.SelectAsync();
+        var actual = await campgrounds.SelectAsync();
 
         Assert.Empty(actual);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var rentals = new Repository<RentalModel>(ctx);
+        var campsites = new Repository<CampsiteModel>(ctx);
 
-        var actual = await rentals.SelectAsync();
+        var actual = await campsites.SelectAsync();
 
         Assert.Empty(actual);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
 
@@ -159,7 +159,7 @@ namespace RVTR.Lodging.Testing.Tests
 
         Assert.Empty(actual);
       }
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var images = new Repository<ImageModel>(ctx);
 
@@ -172,35 +172,35 @@ namespace RVTR.Lodging.Testing.Tests
     [Fact]
     public async void Test_Repository_SelectAsync_ById()
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        ctx.Rentals.RemoveRange(ctx.Rentals);
-        ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Campsites.RemoveRange(ctx.Campsites);
+        ctx.Campgrounds.RemoveRange(ctx.Campgrounds);
         ctx.Images.RemoveRange(ctx.Images);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new Repository<LodgingModel>(ctx);
+        var campgrounds = new Repository<CampgroundModel>(ctx);
 
-        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await lodgings.SelectAsync(1));
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await campgrounds.SelectAsync(1));
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var rentals = new Repository<RentalModel>(ctx);
+        var campsites = new Repository<CampsiteModel>(ctx);
 
-        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await rentals.SelectAsync(1));
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () => await campsites.SelectAsync(1));
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(async () => await reviews.SelectAsync(1));
       }
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var images = new Repository<ImageModel>(ctx);
 
@@ -210,47 +210,47 @@ namespace RVTR.Lodging.Testing.Tests
 
     [Theory]
     [MemberData(nameof(Records))]
-    public async void Test_Repository_Update(LodgingModel lodging, RentalModel rental, ReviewModel review, ImageModel image)
+    public async void Test_Repository_Update(CampgroundModel campground, CampsiteModel campsite, ReviewModel review, ImageModel image)
     {
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        ctx.Rentals.RemoveRange(ctx.Rentals);
-        ctx.Lodgings.RemoveRange(ctx.Lodgings);
+        ctx.Campsites.RemoveRange(ctx.Campsites);
+        ctx.Campgrounds.RemoveRange(ctx.Campgrounds);
         ctx.Images.RemoveRange(ctx.Images);
-        await ctx.Lodgings.AddAsync(lodging);
-        await ctx.Rentals.AddAsync(rental);
+        await ctx.Campgrounds.AddAsync(campground);
+        await ctx.Campsites.AddAsync(campsite);
         await ctx.Reviews.AddAsync(review);
         await ctx.Images.AddAsync(image);
         await ctx.SaveChangesAsync();
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var lodgings = new Repository<LodgingModel>(ctx);
-        var lodgingToUpdate = await ctx.Lodgings.FirstAsync();
+        var campgrounds = new Repository<CampgroundModel>(ctx);
+        var campgroundToUpdate = await ctx.Campgrounds.FirstAsync();
 
-        lodgingToUpdate.Name = "Name";
-        lodgings.Update(lodgingToUpdate);
+        campgroundToUpdate.Name = "Name";
+        campgrounds.Update(campgroundToUpdate);
 
-        var result = ctx.Lodgings.Find(lodging.Id);
-        Assert.Equal(lodgingToUpdate.Name, result.Name);
+        var result = ctx.Campgrounds.Find(campground.Id);
+        Assert.Equal(campgroundToUpdate.Name, result.Name);
         Assert.Equal(EntityState.Modified, ctx.Entry(result).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
-        var rentals = new Repository<RentalModel>(ctx);
-        var rentalToUpdate = await ctx.Rentals.FirstAsync();
+        var campsites = new Repository<CampsiteModel>(ctx);
+        var campsiteToUpdate = await ctx.Campsites.FirstAsync();
 
-        rentalToUpdate.LotNumber = "4";
-        rentals.Update(rentalToUpdate);
+        campsiteToUpdate.LotNumber = "4";
+        campsites.Update(campsiteToUpdate);
 
-        var result = ctx.Rentals.Find(rental.Id);
-        Assert.Equal(rentalToUpdate.LotNumber, result.LotNumber);
+        var result = ctx.Campsites.Find(campsite.Id);
+        Assert.Equal(campsiteToUpdate.LotNumber, result.LotNumber);
         Assert.Equal(EntityState.Modified, ctx.Entry(result).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var reviews = new Repository<ReviewModel>(ctx);
         var reviewToUpdate = await ctx.Reviews.FirstAsync();
@@ -263,7 +263,7 @@ namespace RVTR.Lodging.Testing.Tests
         Assert.Equal(EntityState.Modified, ctx.Entry(result).State);
       }
 
-      using (var ctx = new LodgingContext(Options))
+      using (var ctx = new CampgroundContext(Options))
       {
         var images = new Repository<ImageModel>(ctx);
         var imageToUpdate = await ctx.Images.FirstAsync();

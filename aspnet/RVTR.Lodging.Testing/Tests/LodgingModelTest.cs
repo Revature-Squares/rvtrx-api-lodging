@@ -5,41 +5,41 @@ using Xunit;
 
 namespace RVTR.Lodging.Testing.Tests
 {
-  public class LodgingModelTest
+  public class CampgroundModelTest
   {
-    public static readonly IEnumerable<object[]> Lodgings = new List<object[]>
+    public static readonly IEnumerable<object[]> Campgrounds = new List<object[]>
     {
       new object[]
       {
-        new LodgingModel
+        new CampgroundModel
         {
           Id = 0,
           Address = new AddressModel(),
           Name = "Name",
           Bathrooms = 1,
-          Rentals = new List<RentalModel>(),
+          Campsites = new List<CampsiteModel>(),
           Reviews = new List<ReviewModel>()
         }
       }
     };
 
     [Theory]
-    [MemberData(nameof(Lodgings))]
-    public void Test_Create_LodgingModel(LodgingModel lodging)
+    [MemberData(nameof(Campgrounds))]
+    public void Test_Create_CampgroundModel(CampgroundModel campground)
     {
-      var validationContext = new ValidationContext(lodging);
-      var actual = Validator.TryValidateObject(lodging, validationContext, null, true);
+      var validationContext = new ValidationContext(campground);
+      var actual = Validator.TryValidateObject(campground, validationContext, null, true);
 
       Assert.True(actual);
     }
 
     [Theory]
-    [MemberData(nameof(Lodgings))]
-    public void Test_Validate_LodgingModel(LodgingModel lodging)
+    [MemberData(nameof(Campgrounds))]
+    public void Test_Validate_CampgroundModel(CampgroundModel campground)
     {
-      var validationContext = new ValidationContext(lodging);
+      var validationContext = new ValidationContext(campground);
 
-      Assert.Empty(lodging.Validate(validationContext));
+      Assert.Empty(campground.Validate(validationContext));
     }
   }
 }

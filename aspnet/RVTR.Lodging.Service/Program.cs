@@ -42,7 +42,7 @@ namespace RVTR.Lodging.Service
     {
       using var scope = host.Services.CreateScope();
       var provider = scope.ServiceProvider;
-      var context = provider.GetRequiredService<LodgingContext>();
+      var context = provider.GetRequiredService<CampgroundContext>();
 
       await context.Database.EnsureCreatedAsync();
     }
