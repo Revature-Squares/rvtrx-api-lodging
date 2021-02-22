@@ -17,12 +17,14 @@ namespace RVTR.Lodging.Testing.Tests
         {
           Id = 5,
           Name = "Lodging",
-          Location = new LocationModel
+          Address = new AddressModel
           {
-            Id = 100, Address = new AddressModel
-            {
-              Id = 100, City = "Austin", StateProvince = "TX", Country = "USA", PostalCode = "11111", Street = "Street"
-            },
+            Id = 100,
+            City = "Austin",
+            StateProvince = "TX",
+            Country = "USA",
+            PostalCode = "11111",
+            Street = "Street",
             Longitude = "1.00N",
             Latitude = "1.00W"
           },
@@ -59,8 +61,8 @@ namespace RVTR.Lodging.Testing.Tests
 
         Assert.Equal(lodging.Id, resultEqual.Id);
         Assert.Equal(lodging.Bathrooms, resultEqual.Bathrooms);
-        Assert.Equal(lodging.Location.Latitude, resultEqual.Location.Latitude);
-        Assert.Equal(lodging.Location.Longitude, resultEqual.Location.Longitude);
+        Assert.Equal(lodging.Address.Latitude, resultEqual.Address.Latitude);
+        Assert.Equal(lodging.Address.Longitude, resultEqual.Address.Longitude);
         Assert.Equal(lodging.Name, resultEqual.Name);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(async () => await lodgings.SelectAsync(-1));

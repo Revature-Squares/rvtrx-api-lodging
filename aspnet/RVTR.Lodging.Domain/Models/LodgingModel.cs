@@ -17,16 +17,16 @@ namespace RVTR.Lodging.Domain.Models
     public int Id { get; set; }
 
     /// <summary>
-    /// Location id of the lodging's location
+    /// Address id of the lodging's location
     /// </summary>
     /// <value></value>
-    public int LocationId { get; set; }
+    public int AddressId { get; set; }
 
     /// <summary>
-    /// Location property of the lodging model (required)
+    /// Address property of the lodging model (required)
     /// </summary>
     /// <value></value>
-    public LocationModel Location { get; set; }
+    public AddressModel Address { get; set; }
 
     /// <summary>
     /// Name of the lodging (required)

@@ -15,8 +15,13 @@ namespace RVTR.Lodging.Testing.Tests
     {
       new object[]
       {
+<<<<<<< HEAD
         new LodgingModel { Id = 1, LocationId = 1, Bathrooms = 1, Name = "Test" },
         new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available", Capacity = 5, SiteName = "RV", Size = "10x10"},
+=======
+        new LodgingModel { Id = 1, AddressId = 1, Bathrooms = 1, Name = "Test" },
+        new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
+>>>>>>> b64c964... Made location a property of address
         new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1, Name = "Bob" },
         new ImageModel { Id = 1, ImageUri = "" }
       }
